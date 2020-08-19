@@ -1,11 +1,14 @@
+import { locService } from '../services/loc.service.js'
 
 export const mapController = {
     initMap,
     addMarker,
-    panTo
+    panTo,
+    onCreateLoc,
 }
 
 var map;
+
 
 export function initMap(lat = 32.0749831, lng = 34.9120554) {
     return _connectGoogleApi()
@@ -24,17 +27,40 @@ export function initMap(lat = 32.0749831, lng = 34.9120554) {
             // Configure the click listener.
             map.addListener('click', function (mapsMouseEvent) {
                 addMarker(mapsMouseEvent.latLng)
-                // onCreateLoc(mapsMouseEvent.latLng)
+
+                onCreateLoc(mapsMouseEvent.latLng)
                 // Close the current InfoWindow.
                 infoWindow.close();
-                
- 
+
             })
         })
 
 }
-function onCreateLoc(latlng){
-    console.log(latlng);
+
+function renderLocations(locs) {
+    var strHTML = '<ul>';
+    locs.forEach((loc) => {
+        strHTML += `
+                        <li class="id-${loc.id}">${loc.name} <button onclick=""> GO </button>      <button class="delete-btn">DELETE</button
+                        </li>
+                        `
+
+
+    })
+
+    document.querySelector('.locations-table').innerHTML = strHTML + '</ul>'
+
+}
+
+
+function onCreateLoc(latlng) {
+    locService.getPlaceName(latlng.lat(), latlng.lng())
+        .then(placeName => {
+            locService.createLoc(latlng.lat(), latlng.lng(), placeName)
+            locService.getLocs().then(renderLocations)
+        })
+
+
 }
 
 function addMarker(loc) {
@@ -64,6 +90,8 @@ function _connectGoogleApi() {
         elGoogleApi.onerror = () => reject('Google script failed to load')
     })
 }
+
+
 
 
 

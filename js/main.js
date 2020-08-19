@@ -29,3 +29,8 @@ document.querySelector('.btn').addEventListener('click', (ev) => {
     console.log('Aha!', ev.target);
     mapController.panTo(35.6895, 139.6917);
 })
+
+
+
+
+
