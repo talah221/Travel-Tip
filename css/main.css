@@ -8,3 +8,34 @@ body {
 }
 
 
+.page-container{
+    background-color: #ff7f00;
+    margin: 10rem auto auto;
+    width: 50vw;
+    height: 60vh;
+    border: 1px solid red;
+    display: flex;
+    flex-direction: column;
+    
+    
+}
+
+.nav{
+    width: 100%;
+    height: 4.125rem;
+    display: flex;
+   justify-content:space-between;
+   align-items: center;
+}
+
+.map-loc-weather{
+    display: flex;
+}
+.table-and-weather{
+    flex-grow: 1;
+    background-color: lightblue;
+}
+.map-container{
+    flex-grow: 2;
+
+}
