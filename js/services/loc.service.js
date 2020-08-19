@@ -1,8 +1,11 @@
 export const locService = {
     getLocs: getLocs,
-    getPosition: getPosition
+    getPosition: getPosition,
+    createLocation:createLocation
 }
-var locs = [{ lat: 11.22, lng: 22.11 }]
+var locs = [{id:1, name:'lala', lat: 11.22, lng: 22.11, wheater:'wheater', createdAt:Date.now(), updatedAt:1 }]
+
+
 
 function getLocs() {
     return new Promise((resolve, reject) => {
@@ -21,3 +24,7 @@ function getPosition() {
     })
 }
 
+function createLocation(){
+    console.log('a');
+    
+}

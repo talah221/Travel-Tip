@@ -1,5 +1,5 @@
 
-export const mapService = {
+export const mapController = {
     initMap,
     addMarker,
     panTo
@@ -8,17 +8,33 @@ export const mapService = {
 var map;
 
 export function initMap(lat = 32.0749831, lng = 34.9120554) {
-    console.log('InitMap');
     return _connectGoogleApi()
         .then(() => {
-            console.log('google available');
             map = new google.maps.Map(
                 document.querySelector('#map'), {
                 center: { lat, lng },
-                zoom: 15
+                zoom: 12
             })
-            console.log('Map!', map);
+            const myLatlng = { lat, lng }
+            var infoWindow = new google.maps.InfoWindow(
+                { content: 'Click the map to get Lat/Lng!', position: myLatlng });
+            infoWindow.open(map);
+
+
+            // Configure the click listener.
+            map.addListener('click', function (mapsMouseEvent) {
+                addMarker(mapsMouseEvent.latLng)
+                // onCreateLoc(mapsMouseEvent.latLng)
+                // Close the current InfoWindow.
+                infoWindow.close();
+                
+ 
+            })
         })
+
+}
+function onCreateLoc(latlng){
+    console.log(latlng);
 }
 
 function addMarker(loc) {
